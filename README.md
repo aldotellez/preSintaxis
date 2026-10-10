@@ -4,24 +4,6 @@ preSintaxis.js es una librería minimalista de resaltado de sintaxis para HTML e
 
 ---
 
-## Instalación
-
-### CDN
-
-```html
-<script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@v3.0.1/dist/preSintaxis.js" defer></script>
-```
-
-### npm
-
-```bash
-npm install presintaxis
-```
-
-```js
-import preSintaxis from 'presintaxis';
-preSintaxis.init();
-```
 
 ### Descarga directa
 
