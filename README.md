@@ -9,7 +9,7 @@ preSintaxis.js es una librería minimalista de resaltado de sintaxis para HTML e
 ### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/TU-USUARIO/presintaxis@v3.0.1/dist/preSintaxis.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@v3.0.1/dist/preSintaxis.js" defer></script>
 ```
 
 ### npm
