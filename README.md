@@ -13,7 +13,7 @@ Solo necesitas cargar el Core (núcleo) y el lenguaje que vayas a utilizar.
 
 ```html
 <!-- 1. Core de la librería -->
-<script src="https://cdn.jsdelivr.net/gh/TU-USUARIO/presintaxis@v1.0.2/dist/preSintaxis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@v1.0.2/dist/preSintaxis.min.js"></script>
 
 <!-- 2. Lenguaje (ejemplo: JavaScript) -->
-<script src="https://cdn.jsdelivr.net/gh/TU-USUARIO/presintaxis@v1.0.2/dist/lang/JavaScript.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@v1.0.2/dist/lang/JavaScript.js"></script>
