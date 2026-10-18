@@ -16,4 +16,4 @@ Solo necesitas cargar el Core (núcleo) y el lenguaje que vayas a utilizar.
 <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@v1.0.2/dist/preSintaxis.min.js"></script>
 
 <!-- 2. Lenguaje (ejemplo: JavaScript) -->
-<script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@v1.0.2/dist/lang/JavaScript.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@v1.0.2/dist/lang/javascript.js"></script>
