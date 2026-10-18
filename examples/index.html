@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>preSintaxis.js — Documentación Oficial</title>
+  
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-card: #1e293b;
+      --bg-code: #111827;
+      --fg: #f8fafc;
+      --fg-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --border: #334155;
+      --ok: #22c55e;
+      --warn: #f59e0b;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    header {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin: 0 0 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    h1 .badge {
+      font-size: 0.8rem;
+      background: #1e40af;
+      color: #dbeafe;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-left: 0.5rem;
+    }
+
+    h2 {
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-top: 3rem;
+    }
+
+    h3 {
+      color: #f8fafc;
+      margin-top: 2rem;
+    }
+
+    p, li { color: #cbd5e1; }
+    
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: rgba(255,255,255,0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.875em;
+    }
+
+    pre {
+      background: var(--bg-code);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+
+    pre code {
+      background: transparent;
+      padding: 0;
+    }
+
+    nav {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    nav h4 {
+      margin: 0 0 0.5rem;
+      color: var(--fg-muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    nav a {
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-block;
+      padding: 2px 0;
+      font-size: 0.9rem;
+      margin-right: 1.5rem;
+    }
+
+    nav a:hover { text-decoration: underline; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: rgba(255,255,255,0.05);
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    .note {
+      background: rgba(56, 189, 248, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 1rem;
+      border-radius: 0 4px 4px 0;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    .warn {
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 4px solid var(--warn);
+      padding: 1rem;
+      border-radius: 0 4px 4px 0;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    
+    .token-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .token-list li {
+      background: var(--bg-card);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      border-left: 3px solid var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>preSintaxis.js <span class="badge">v1.0.2</span></h1>
+    <p>Librería minimalista de resaltado de sintaxis basado en <strong>categorías semánticas</strong> para HTML estático. Sin dependencias, sin build step y ultra ligera (~2 KB gzip).</p>
+  </header>
+
+  <nav>
+    <h4>Contenido</h4>
+    <a href="#instalacion">Instalación</a>
+    <a href="#uso-basico">Uso Básico</a>
+    <a href="#plugins">Plugins</a>
+    <a href="#atributos">Atributos HTML</a>
+    <a href="#api">API JS</a>
+    <a href="#tipos-token">Tipos de Token</a>
+    <a href="#personalizacion">Colores CSS</a>
+    <a href="#limitaciones">Limitaciones</a>
+  </nav>
+
+  <!-- ==========================================
+       1. INSTALACIÓN
+       ========================================== -->
+  <section id="instalacion">
+    <h2>🚀 Instalación</h2>
+    
+    <h3>CDN (Recomendado para empezar)</h3>
+    <p>Simplemente agrega el core de la librería y el lenguaje que necesites en tu HTML:</p>
+    <pre><code>&lt;!-- 1. Core de la librería --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/TU-USUARIO/presintaxis@v1.0.2/dist/preSintaxis.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- 2. Lenguaje (ejemplo: JavaScript) --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/TU-USUARIO/presintaxis@v1.0.2/dist/lang/JavaScript.js"&gt;&lt;/script&gt;</code></pre>
+
+    <h3>Descarga directa o NPM</h3>
+    <p>Descarga el archivo <code>dist/preSintaxis.min.js</code> y añádelo a tu proyecto, o instálalo vía NPM:</p>
+    <pre><code>npm install presintaxis</code></pre>
+  </section>
+
+  <!-- ==========================================
+       2. USO BÁSICO
+       ========================================== -->
+  <section id="uso-basico">
+    <h2>🛠️ Uso Básico</h2>
+    <p>El núcleo (Core) incluye las funciones esenciales: tokenización, encabezados, botón de copiar y numeración de líneas. La librería se auto-inicializa al cargar la página.</p>
+    
+    <pre><code>&lt;pre data-encabezado="app.js" data-ajuste="{copiar:'true', lineas:'true'}"&gt;
+  &lt;code data-sintaxis="javascript"&gt;
+const saludo = "Hola Mundo";
+console.log(saludo);
+  &lt;/code&gt;
+&lt;/pre&gt;</code></pre>
+  </section>
+
+  <!-- ==========================================
+       3. PLUGINS
+       ========================================== -->
+  <section id="plugins">
+    <h2>🧩 Plugins Opcionales</h2>
+    <p>Para mantener la librería extremadamente ligera, las funciones avanzadas se cargan como plugins independientes. <strong>Solo debes cargar los que necesites</strong> después del Core.</p>
+
+    <h3>1. Temas (temas.js)</h3>
+    <p>Añade temas de color predefinidos listos para usar (Dracula, Nord, GitHub Light).</p>
+    <pre><code>&lt;script src="dist/plugins/temas.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  // Aplicar un tema (los estilos se inyectan dinámicamente en el core)
+  preSintaxisTemas.aplicar('dracula');
+&lt;/script&gt;</code></pre>
+
+    <h3>2. Scroll Automático (scroll.js)</h3>
+    <p>Añade una barra de desplazamiento vertical si el bloque de código es muy largo.</p>
+    <pre><code>&lt;script src="dist/plugins/scroll.js"&gt;&lt;/script&gt;
+
+&lt;!-- Activa el scroll a partir de 20 líneas --&gt;
+&lt;pre data-ajuste="{maxlineas:'20', altura:'30rem'}"&gt;...&lt;/pre&gt;</code></pre>
+
+    <h3>3. Descargar Código (descargar.js)</h3>
+    <p>Añade un botón para descargar el bloque de código como archivo de texto.</p>
+    <pre><code>&lt;script src="dist/plugins/descargar.js"&gt;&lt;/script&gt;
+&lt;pre data-encabezado="script.js" data-ajuste="{descargar:'true'}"&gt;...&lt;/pre&gt;</code></pre>
+
+    <h3>4. Resaltar Líneas (resaltar.js)</h3>
+    <p>Permite resaltar líneas específicas o rangos con un color de fondo.</p>
+    <pre><code>&lt;script src="dist/plugins/resaltar.js"&gt;&lt;/script&gt;
+
+&lt;!-- Resalta las líneas 2, 3 y 4 --&gt;
+&lt;pre data-ajuste="{resaltar:'2-4'}"&gt;...&lt;/pre&gt;</code></pre>
+  </section>
+
+  <!-- ==========================================
+       4. ATRIBUTOS HTML
+       ========================================== -->
+  <section id="atributos">
+    <h2>⚙️ Atributos HTML</h2>
+
+    <h3>En la etiqueta &lt;pre&gt;</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Atributo</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>data-encabezado</code></td>
+          <td>Nombre del archivo. Se muestra como header del bloque.</td>
+        </tr>
+        <tr>
+          <td><code>data-ajuste</code></td>
+          <td>Objeto con la configuración del bloque (ver tabla abajo).</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>En la etiqueta &lt;code&gt;</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Atributo</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>data-sintaxis</code></td>
+          <td>Lenguaje del código: <code>javascript</code>, <code>python</code>, <code>css</code>, <code>html</code>, <code>rust</code>, o uno registrado con <code>registrarSintaxis()</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Ajustes (data-ajuste)</h3>
+    <p>Se pasan como objeto literal dentro del atributo: <code>data-ajuste="{copiar:'true', lineas:'true'}"</code></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Clave</th>
+          <th>Valores</th>
+          <th>Default</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>copiar</code></td>
+          <td>'true' / 'false'</td>
+          <td>false</td>
+          <td>Añade botón para copiar el código al portapapeles.</td>
+        </tr>
+        <tr>
+          <td><code>lineas</code></td>
+          <td>'true' / 'false'</td>
+          <td>false</td>
+          <td>Muestra numeración de líneas.</td>
+        </tr>
+        <tr>
+          <td><code>resaltar</code></td>
+          <td>'1', '2-4', '1,3-5'</td>
+          <td>—</td>
+          <td>Resalta líneas específicas (requiere plugin).</td>
+        </tr>
+        <tr>
+          <td><code>descargar</code></td>
+          <td>'true' / 'false'</td>
+          <td>false</td>
+          <td>Añade botón para descargar el código (requiere plugin).</td>
+        </tr>
+        <tr>
+          <td><code>maxlineas</code></td>
+          <td>'20' / '0'</td>
+          <td>20</td>
+          <td>Umbral de líneas para activar scroll (requiere plugin).</td>
+        </tr>
+        <tr>
+          <td><code>altura</code></td>
+          <td>'30rem'</td>
+          <td>24rem</td>
+          <td>Altura máxima del área scrollable (requiere plugin).</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ==========================================
+       5. API JS
+       ========================================== -->
+  <section id="api">
+    <h2>🔌 API de JavaScript</h2>
+
+    <h3>preSintaxis.registrarSintaxis(lenguaje, reglas)</h3>
+    <p>Registra un lenguaje nuevo o redefine uno existente.</p>
+    <pre><code>preSintaxis.registrarSintaxis('rust', [
+  { tipo: 'comentario',  regex: /\/\/[^\n]*/ },
+  { tipo: 'valor',       regex: /"(?:[^"\\]|\\.)*"/ },
+  { tipo: 'palabra',     regex: /\b(?:fn|let|mut|const|struct|impl|trait|pub|use|mod|match|if|else|for|while|loop|return|self|as|where|async|await|dyn|in)\b/ },
+  { tipo: 'tipo',        regex: /\b(?:i32|i64|u32|u64|f32|f64|bool|char|str|String)\b/ },
+  { tipo: 'valor',       regex: /\b\d+(?:\.\d+)?\b/ },
+  { tipo: 'delimitador', regex: /[(){}\[\];,.:#]/ },
+  { tipo: 'operador',    regex: /[+\-*/%=<>!&|^~?]+/ },
+  { tipo: 'identificador', regex: /\b[A-Za-z_]\w*\b/ }
+]);</code></pre>
+    <div class="note">
+      <strong>Reglas importantes:</strong> El orden importa. Las reglas se aplican en orden declarado. Pon primero las de mayor prioridad (comentarios antes que strings, strings antes que palabras clave).
+    </div>
+
+    <h3>preSintaxis.init(root?)</h3>
+    <p>Procesa todos los bloques <code>&lt;pre&gt;</code> no procesados dentro de <code>root</code> (por defecto <code>document</code>).</p>
+    <pre><code>preSintaxis.init(document.getElementById('mi-seccion'));</code></pre>
+
+    <h3>preSintaxis.destruir(selector?)</h3>
+    <p>Revierte los bloques a su estado original. Útil para SPAs.</p>
+    <pre><code>preSintaxis.destruir('#mi-seccion pre');</code></pre>
+
+    <h3>preSintaxis.version</h3>
+    <p>Devuelve la versión actual como string.</p>
+    <pre><code>console.log(preSintaxis.version); // "1.0.2"</code></pre>
+  </section>
+
+  <!-- ==========================================
+       6. TIPOS DE TOKEN
+       ========================================== -->
+  <section id="tipos-token">
+    <h2>🎨 Tipos de Token (Categorías Semánticas)</h2>
+    <p>A diferencia de otros resaltadores que dividen el código en tokens genéricos (como <code>clave</code> o <code>texto</code>), preSintaxis analiza el código utilizando categorías semánticas reales:</p>
+    
+    <ul class="token-list">
+      <li><code>.ps-palabra</code> — Palabras reservadas (if, return, const)</li>
+      <li><code>.ps-identificador</code> — Variables, funciones, clases</li>
+      <li><code>.ps-operador</code> — Símbolos de asignación y lógicos</li>
+      <li><code>.ps-delimitador</code> — Paréntesis, llaves, corchetes, puntos y comas</li>
+      <li><code>.ps-tipo</code> — Tipos de datos (string, int, bool)</li>
+      <li><code>.ps-valor</code> — Strings y números literales</li>
+      <li><code>.ps-comentario</code> — Textos explicativos ignorados por la máquina</li>
+    </ul>
+  </section>
+
+  <!-- ==========================================
+       7. PERSONALIZACIÓN
+       ========================================== -->
+  <section id="personalizacion">
+    <h2>🖌️ Personalización de Colores (CSS)</h2>
+    <p>La librería inyecta sus estilos en un bloque <code>&lt;style id="ps-estilos"&gt;</code>. Puedes sobrescribir los colores modificando las variables CSS en tu propio archivo de estilos:</p>
+    <pre  data-ajuste="{copiar:'true', lineas:'true'}">
+  <code data-sintaxis="css">
+    :root {
+  --ps-contenido: #111827; /* Fondo del código */
+  --ps-texto: #e5e7eb;     /* Texto por defecto */
+  
+  /* Colores semánticos */
+  --ps-palabra: #f472b6;       
+  --ps-identificador: #e5e7eb; 
+  --ps-operador: #94a3b8;      
+  --ps-delimitador: #6b7280;   
+  --ps-tipo: #38bdf8;          
+  --ps-valor: #a3e635;         
+  --ps-comentario: #6b7280;    
+}</code></pre>
+  </section>
+
+  <!-- ==========================================
+       8. LIMITACIONES
+       ========================================== -->
+  <section id="limitaciones">
+    <h2>⚠️ Limitaciones</h2>
+    <ul>
+      <li><strong>No es un parser real.</strong> Es un tokenizador de expresiones regulares aplicadas en orden. Lenguajes con contexto complejo (JSX, HTML-in-JS, plantillas anidadas) se colorean de forma aproximada.</li>
+      <li><strong>Rendimiento:</strong> Para bloques de más de 500 líneas, el motor de regex puede ralentizarse. Se recomienda usar el plugin de scroll.</li>
+      <li><strong>Detección de lenguaje:</strong> Requiere <code>data-sintaxis</code> explícito en la etiqueta <code>&lt;code&gt;</code>.</li>
+    </ul>
+
+    <h3>Notas de implementación</h3>
+    <p>Si se escapara el HTML antes de tokenizar (convirtiendo <code>&lt;</code> en <code>&amp;lt;</code>), las regex que buscan strings o comentarios fallarían. Al tokenizar sobre texto crudo y escapar cada token individualmente, el coloreado es correcto incluso cuando hay HTML dentro de strings.</p>
+    <p>Los estilos base se inyectan en el <code>&lt;style id="ps-estilos"&gt;</code> usando un contenedor <code>.ps-contenido</code> que evita los problemas clásicos de saltos de línea y márgenes asimétricos en <code>&lt;pre&gt;</code> y <code>&lt;code&gt;</code>.</p>
+  </section>
+
+  <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--fg-muted); font-size: 0.875rem;">
+    <p>preSintaxis.js v1.0.2 — Licencia MIT</p>
+  </footer>
+<!-- ═══════ CARGA DE SCRIPTS ═══════ -->
+<script src="../dist/preSintaxis.js"></script>
+<script src="../dist/lang/python.js"></script>
+<script src="../dist/lang/css.js"></script>
+<script src="../dist/lang/rust.js"></script>
+<script src="../dist/lang/javascript.js"></script>
+</body>
+</html>
