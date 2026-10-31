@@ -1,0 +1,973 @@
+/* =========================================================
+   LandingDocs v1.0 — styles.css
+   Hoja de estilos única del sitio: tokens de diseño, layout
+   responsivo (Grid/Flexbox) y presentación de la landing y
+   del área de documentación.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. Tokens de diseño (paleta suave, tipografía y medidas)
+   --------------------------------------------------------- */
+:root {
+  --ld-primario: #6366f1;
+  --ld-primario-oscuro: #4338ca;
+  --ld-primario-suave: #eef2ff;
+  --ld-acento: #0d9488;
+  --ld-fondo: #f7f9fc;
+  --ld-superficie: #ffffff;
+  --ld-borde: #e5e7eb;
+  --ld-texto: #1f2937;
+  --ld-texto-fuerte: #0f172a;
+  --ld-texto-suave: #64748b;
+  --ld-sombra: 0 12px 28px rgb(15 23 42 / 8%);
+  --ld-radio: 14px;
+  --ld-radio-sm: 10px;
+  --ld-alto-cabecera: 4rem;
+  --ld-ancho-max: 72rem;
+  --ld-fuente: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --ld-fuente-codigo: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --ld-transicion: 200ms ease;
+}
+
+/* ---------------------------------------------------------
+   2. Reset ligero y estilos base
+   --------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ld-fuente);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ld-texto);
+  background: var(--ld-fondo);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* El atributo hidden siempre gana, incluso con display declarado */
+[hidden] {
+  display: none !important;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.75rem;
+  line-height: 1.25;
+  color: var(--ld-texto-fuerte);
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--ld-primario-oscuro);
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--ld-primario);
+}
+
+code {
+  font-family: var(--ld-fuente-codigo);
+  font-size: 0.9em;
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--ld-primario) 55%, transparent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------------------------------------------------------
+   3. Utilidades reutilizables
+   --------------------------------------------------------- */
+.contenedor {
+  width: min(100% - 2.5rem, var(--ld-ancho-max));
+  margin-inline: auto;
+}
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.enlace-salto {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  z-index: 50;
+  padding: 0.75rem 1rem;
+  background: var(--ld-primario-oscuro);
+  color: #fff;
+  border-radius: 0 0 var(--ld-radio-sm) 0;
+  text-decoration: none;
+}
+
+.enlace-salto:focus {
+  left: 0;
+  color: #fff;
+}
+
+.insignia {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ld-primario-oscuro);
+  background: var(--ld-primario-suave);
+  border-radius: 999px;
+}
+
+.seccion-titulo {
+  font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+  margin-bottom: 1.25rem;
+}
+
+/* Botones: un solo componente base y dos variantes */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform var(--ld-transicion), box-shadow var(--ld-transicion),
+    background var(--ld-transicion), border-color var(--ld-transicion);
+}
+
+.boton--primario {
+  background: linear-gradient(135deg, var(--ld-primario), var(--ld-primario-oscuro));
+  color: #fff;
+  box-shadow: var(--ld-sombra);
+}
+
+.boton--primario:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgb(67 56 202 / 28%);
+}
+
+.boton--secundario {
+  background: var(--ld-superficie);
+  border-color: var(--ld-borde);
+  color: var(--ld-texto);
+}
+
+.boton--secundario:hover {
+  color: var(--ld-primario-oscuro);
+  border-color: currentColor;
+}
+
+/* Avisos informativos dentro de la documentación */
+.aviso {
+  max-width: 68ch;
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--ld-primario-suave);
+  border-left: 4px solid var(--ld-primario);
+  border-radius: var(--ld-radio-sm);
+}
+
+.aviso--info {
+  background: color-mix(in srgb, var(--ld-acento) 9%, #fff);
+  border-left-color: var(--ld-acento);
+}
+
+/* ---------------------------------------------------------
+   4. Cabecera fija
+   --------------------------------------------------------- */
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--ld-superficie) 88%, transparent);
+  border-bottom: 1px solid var(--ld-borde);
+  backdrop-filter: blur(10px);
+}
+
+.cabecera__interior {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: var(--ld-alto-cabecera);
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  color: var(--ld-texto-fuerte);
+  text-decoration: none;
+}
+
+.marca__icono {
+  display: block;
+  flex: 0 0 auto;
+  width: 2.375rem;
+  height: 2.375rem;
+}
+
+.marca__version {
+  padding: 0.1rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ld-primario-oscuro);
+  background: var(--ld-primario-suave);
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+.navegacion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.navegacion__enlace {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ld-texto-suave);
+  text-decoration: none;
+  transition: color var(--ld-transicion);
+}
+
+.navegacion__enlace:hover,
+body[data-vista="docs"] .navegacion__enlace[data-accion="ir-docs"],
+body[data-vista="inicio"] .navegacion__enlace[data-accion="ir-inicio"] {
+  color: var(--ld-primario-oscuro);
+}
+
+/* Selector de tema del resaltado */
+.selector-tema {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ld-texto-suave);
+}
+
+.selector-tema__control {
+  padding: 0.35rem 0.5rem;
+  font: inherit;
+  color: var(--ld-texto);
+  background: var(--ld-superficie);
+  border: 1px solid var(--ld-borde);
+  border-radius: var(--ld-radio-sm);
+  cursor: pointer;
+}
+
+/* Botón "Capítulos" de la cabecera: solo en pantallas pequeñas y en la documentación */
+.cabecera__menu {
+  display: none;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--ld-texto);
+  background: var(--ld-superficie);
+  border: 1px solid var(--ld-borde);
+  border-radius: var(--ld-radio-sm);
+  cursor: pointer;
+}
+
+.cabecera__menu:hover {
+  color: var(--ld-primario-oscuro);
+  background: var(--ld-primario-suave);
+}
+
+/* ---------------------------------------------------------
+   5. Landing: héroe y tarjetas de características
+   --------------------------------------------------------- */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+  padding: 4rem 0 3rem;
+}
+
+.hero__titulo {
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  margin-bottom: 1rem;
+}
+
+.hero__acento {
+  display: block;
+  color: transparent;
+  background: linear-gradient(120deg, var(--ld-primario), var(--ld-acento));
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.hero__descripcion {
+  max-width: 48ch;
+  font-size: 1.05rem;
+  color: var(--ld-texto-suave);
+}
+
+.hero__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.75rem 0 1.25rem;
+}
+
+.hero__datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+  color: var(--ld-texto-suave);
+  list-style: none;
+}
+
+.hero__datos strong {
+  color: var(--ld-texto-fuerte);
+}
+
+.hero__codigo {
+  min-width: 0;
+}
+
+.caracteristicas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.25rem;
+  padding: 0.5rem 0 4.5rem;
+}
+
+.tarjeta {
+  padding: 1.5rem;
+  background: var(--ld-superficie);
+  border: 1px solid var(--ld-borde);
+  border-radius: var(--ld-radio);
+  transition: transform var(--ld-transicion), box-shadow var(--ld-transicion);
+}
+
+.tarjeta:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ld-sombra);
+}
+
+.tarjeta__icono {
+  display: inline-grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-bottom: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ld-primario-oscuro);
+  background: var(--ld-primario-suave);
+  border-radius: var(--ld-radio-sm);
+}
+
+.tarjeta h3 {
+  margin-bottom: 0.4rem;
+  font-size: 1.05rem;
+}
+
+.tarjeta p {
+  margin: 0;
+  font-size: 0.925rem;
+  color: var(--ld-texto-suave);
+}
+
+/* ---------------------------------------------------------
+   6. Documentación: layout de dos columnas
+   --------------------------------------------------------- */
+.docs {
+  display: grid;
+  grid-template-columns: minmax(14rem, 17rem) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+  padding: 2.5rem 0 4rem;
+}
+
+/* Menú lateral: se queda visible al desplazarse en escritorio */
+.docs__lateral {
+  position: sticky;
+  top: calc(var(--ld-alto-cabecera) + 1.5rem);
+  min-width: 0;
+}
+
+/* Fondo oscuro que se muestra detrás del menú deslizante */
+.docs__fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  padding: 0;
+  border: 0;
+  background: rgb(15 23 42 / 45%);
+  cursor: pointer;
+}
+
+/* Botón de cierre dentro del menú deslizante */
+.docs__cerrar {
+  display: none;
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--ld-primario-oscuro);
+  background: var(--ld-primario-suave);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Evita el desplazamiento del fondo mientras el menú está abierto */
+body.sin-scroll {
+  overflow: hidden;
+}
+
+.menu-docs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.5rem;
+  background: var(--ld-superficie);
+  border: 1px solid var(--ld-borde);
+  border-radius: var(--ld-radio);
+}
+
+.menu-docs__titulo {
+  padding: 0.5rem 0.75rem 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ld-texto-suave);
+}
+
+.menu-docs__enlace {
+  display: block;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: var(--ld-texto);
+  text-decoration: none;
+  border-radius: var(--ld-radio-sm);
+  transition: background var(--ld-transicion), color var(--ld-transicion);
+}
+
+.menu-docs__enlace:hover {
+  color: var(--ld-primario-oscuro);
+  background: var(--ld-primario-suave);
+}
+
+.menu-docs__enlace--activo {
+  color: var(--ld-primario-oscuro);
+  background: var(--ld-primario-suave);
+  box-shadow: inset 3px 0 0 var(--ld-primario);
+}
+
+/* Área principal */
+.docs__principal,
+.doc-modulo {
+  min-width: 0;
+  scroll-margin-top: calc(var(--ld-alto-cabecera) + 1rem);
+}
+
+.doc-modulo__etiqueta {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ld-primario-oscuro);
+  background: var(--ld-primario-suave);
+  border-radius: 999px;
+}
+
+.doc-modulo h2 {
+  font-size: clamp(1.45rem, 2.6vw, 1.85rem);
+}
+
+.doc-modulo > p {
+  max-width: 68ch;
+  color: #334155;
+}
+
+.doc-modulo h3 {
+  margin-top: 1.9rem;
+  font-size: 1.05rem;
+}
+
+.doc-modulo p code,
+.doc-modulo li code {
+  padding: 0.1rem 0.35rem;
+  font-size: 0.85em;
+  color: var(--ld-primario-oscuro);
+  background: var(--ld-primario-suave);
+  border-radius: 6px;
+}
+
+/* Las rutas y URLs largas no deben romper el ancho en móvil */
+.doc-modulo :not(pre) > code,
+.tabla code {
+  overflow-wrap: break-word;
+}
+
+/* Botón "Siguiente" al final de cada capítulo */
+.doc-paginacion {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ld-borde);
+}
+
+/* El atributo hidden debe ganar al display: flex de arriba */
+.doc-paginacion[hidden] {
+  display: none;
+}
+
+.doc-paginacion .boton {
+  max-width: 100%;
+  text-align: left;
+}
+
+.doc-paginacion .boton::after {
+  content: "→";
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+.lista-check {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 68ch;
+  padding: 0;
+  list-style: none;
+}
+
+.lista-check li {
+  position: relative;
+  padding-left: 1.6rem;
+}
+
+.lista-check li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--ld-acento);
+}
+
+/* Tablas de referencia */
+.tabla-envoltorio {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  border: 1px solid var(--ld-borde);
+  border-radius: var(--ld-radio);
+}
+
+.tabla {
+  width: 100%;
+  min-width: 30rem;
+  font-size: 0.9rem;
+  background: var(--ld-superficie);
+  border-collapse: collapse;
+}
+
+.tabla th,
+.tabla td {
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid var(--ld-borde);
+}
+
+.tabla th {
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ld-texto-suave);
+  background: #f1f5f9;
+}
+
+.tabla tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Preguntas frecuentes con <details> nativo */
+.preguntas {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 68ch;
+  margin: 1.25rem 0;
+}
+
+.preguntas details {
+  padding: 0.85rem 1.1rem;
+  background: var(--ld-superficie);
+  border: 1px solid var(--ld-borde);
+  border-radius: var(--ld-radio-sm);
+}
+
+.preguntas summary {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.preguntas details[open] summary {
+  margin-bottom: 0.5rem;
+  color: var(--ld-primario-oscuro);
+}
+
+.preguntas p {
+  margin: 0;
+  font-size: 0.925rem;
+  color: var(--ld-texto-suave);
+}
+
+/* ---------------------------------------------------------
+   7. Bloques de código: respaldo visual antes de inicializar
+   preSintaxis.js (después toma el control con su propio CSS)
+   --------------------------------------------------------- */
+pre:not([data-sintaxis-listo]) {
+  margin: 1.25rem 0;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  font-family: var(--ld-fuente-codigo);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: #abb2bf;
+  background: #282c34;
+  border-radius: var(--ld-radio-sm);
+}
+
+pre:not([data-sintaxis-listo]) code {
+  font-size: inherit;
+  white-space: pre;
+}
+
+/* ---------------------------------------------------------
+   8. Pie de página
+   --------------------------------------------------------- */
+.pie {
+  padding: 2rem 0;
+  font-size: 0.85rem;
+  color: var(--ld-texto-suave);
+  background: var(--ld-superficie);
+  border-top: 1px solid var(--ld-borde);
+}
+
+.pie__interior {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.pie p {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------
+   9. Adaptación a tablet (≤960 px) y móvil (≤640 px)
+   --------------------------------------------------------- */
+@media (max-width: 960px) {
+  /* La portada pasa a una sola columna */
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2.75rem 0 2.5rem;
+  }
+
+  .hero__descripcion {
+    max-width: 60ch;
+  }
+
+  /* El selector de tema conserva el encabezado en una sola fila */
+  .selector-tema__texto {
+    display: none;
+  }
+
+  .navegacion {
+    gap: 0.9rem;
+  }
+
+  /* La documentación ocupa todo el ancho */
+  .docs {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  /* El botón de capítulos se muestra en la cabecera solo dentro de la documentación */
+  body[data-vista="docs"] .cabecera__menu {
+    display: grid;
+  }
+
+  /* El menú lateral pasa a ser un panel deslizante */
+
+  .docs__lateral {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 40;
+    width: min(82vw, 19rem);
+    padding: 1rem;
+    overflow-y: auto;
+    background: var(--ld-superficie);
+    border-right: 1px solid var(--ld-borde);
+    box-shadow: 0 20px 40px rgb(15 23 42 / 18%);
+    transform: translateX(-105%);
+    visibility: hidden;
+    transition: transform 240ms ease, visibility 0s linear 240ms;
+  }
+
+  .docs__lateral.esta-abierto {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform 240ms ease, visibility 0s;
+  }
+
+  .docs__cerrar {
+    display: grid;
+  }
+
+  /* Dentro del panel el menú vuelve a ser una lista vertical */
+  .menu-docs {
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .menu-docs__titulo {
+    display: block;
+    padding: 0.25rem 3rem 0.75rem 0.5rem;
+  }
+
+  .menu-docs__enlace {
+    padding: 0.7rem 0.85rem;
+    white-space: normal;
+  }
+
+  .menu-docs__enlace--activo {
+    box-shadow: inset 3px 0 0 var(--ld-primario);
+  }
+
+  .docs__principal,
+  .doc-modulo {
+    scroll-margin-top: calc(var(--ld-alto-cabecera) + 0.75rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .contenedor {
+    width: min(100% - 2rem, var(--ld-ancho-max));
+  }
+
+  /* Cabecera en dos filas compactas: marca arriba, navegación abajo */
+  .cabecera__interior {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-block: 0.55rem;
+  }
+
+  .marca__nombre {
+    font-size: 0.95rem;
+  }
+
+  .navegacion {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.4rem;
+  }
+
+  .navegacion__enlace {
+    font-size: 0.875rem;
+  }
+
+  .selector-tema {
+    font-size: 0.8rem;
+  }
+
+  .selector-tema__control {
+    padding: 0.25rem 0.35rem;
+  }
+
+  /* La cabecera ahora es más alta: compensa el desplazamiento de anclas */
+  .docs__principal,
+  .doc-modulo {
+    scroll-margin-top: 6.5rem;
+  }
+
+  .hero {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .hero__titulo {
+    font-size: clamp(1.75rem, 8vw, 2.4rem);
+  }
+
+  .hero__descripcion {
+    font-size: 1rem;
+  }
+
+  .hero__acciones {
+    margin: 1.25rem 0 1rem;
+  }
+
+  .hero__acciones .boton {
+    flex: 1 1 100%;
+  }
+
+  .hero__datos {
+    gap: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .caracteristicas {
+    gap: 1rem;
+    padding-bottom: 3rem;
+  }
+
+  .tarjeta {
+    padding: 1.25rem;
+  }
+
+  .docs {
+    padding: 1.5rem 0 3rem;
+  }
+
+  .docs__lateral {
+    width: min(86vw, 18rem);
+  }
+
+  .doc-paginacion .boton {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .doc-modulo h2 {
+    font-size: 1.4rem;
+  }
+
+  .doc-modulo h3 {
+    margin-top: 1.5rem;
+  }
+
+  .tabla th,
+  .tabla td {
+    padding: 0.6rem 0.7rem;
+  }
+
+  /* Código más compacto sin perder legibilidad */
+  #contenido-principal .ps-linea,
+  #contenido-principal pre[data-sintaxis-listo] {
+    font-size: 0.8rem;
+  }
+
+  /* Evita que los botones del bloque tapen el nombre del archivo */
+  pre[data-sintaxis-listo][data-encabezado]::before {
+    padding-right: 4.5rem;
+  }
+
+  /* Objetivos táctiles de al menos 32 px */
+  .ps-btn {
+    min-width: 2rem;
+    min-height: 2rem;
+  }
+
+  .pie {
+    padding: 1.5rem 0;
+  }
+
+  .pie p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 380px) {
+  /* Pantallas muy estrechas: menos aire, misma jerarquía */
+  .contenedor {
+    width: calc(100% - 1.5rem);
+  }
+
+  .navegacion {
+    gap: 0.25rem;
+  }
+
+  /* La marca ya lleva al inicio: libera espacio en la fila de navegación */
+  .navegacion__enlace[data-accion="ir-inicio"] {
+    display: none;
+  }
+
+  .hero__titulo {
+    font-size: 1.65rem;
+  }
+
+  .insignia {
+    font-size: 0.68rem;
+  }
+
+  .doc-modulo__etiqueta {
+    font-size: 0.68rem;
+  }
+}
+
+/* ---------------------------------------------------------
+   10. Preferencias de movimiento reducido
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

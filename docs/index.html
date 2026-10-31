@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Documentación oficial de preSintaxis.js v1.0.2: resaltador de sintaxis semántico para HTML estático. Instalación por CDN, lenguajes, temas, ajustes, plugins y API.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#6366f1">
+  <title>preSintaxis.js v1.0.2 — Documentación</title>
+  <!-- Icono de la pestaña y hoja de estilos única del proyecto -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-vista="inicio">
+
+  <!-- Enlace de accesibilidad: permite saltar la cabecera con el teclado -->
+  <a class="enlace-salto" href="#contenido-principal">Saltar al contenido principal</a>
+
+  <!-- ============================================================
+       CABECERA FIJA: marca, navegación y selector de tema de código
+       ============================================================ -->
+  <header class="cabecera">
+    <div class="contenedor cabecera__interior">
+      <a class="marca" href="#inicio" data-accion="ir-inicio">
+        <img class="marca__icono" src="logo.svg" alt="" width="38" height="38">
+        <span class="marca__nombre">preSintaxis <span class="marca__version">v1.0.2</span></span>
+      </a>
+
+      <nav class="navegacion" aria-label="Navegación principal">
+        <!-- Abre el menú de capítulos en pantallas pequeñas (solo en la documentación) -->
+        <button class="cabecera__menu" id="alternar-menu" type="button"
+                aria-expanded="false" aria-controls="docs-lateral"
+                aria-label="Capítulos" title="Capítulos">
+          <span aria-hidden="true">☰</span>
+        </button>
+
+        <a class="navegacion__enlace" href="#inicio" data-accion="ir-inicio">Inicio</a>
+        <a class="navegacion__enlace" href="#documentacion" data-accion="ir-docs">Documentación</a>
+
+        <!-- Selector de estilos de resaltado (preSintaxis.js) -->
+        <label class="selector-tema">
+          <span class="selector-tema__texto">Tema de código</span>
+          <select id="selector-tema" class="selector-tema__control" aria-label="Tema de resaltado de código">
+            <option value="atom-one-dark" selected>Atom One Dark</option>
+            <option value="github-light">GitHub</option>
+            <option value="monokai">Monokai</option>
+            <option value="dracula">Dracula</option>
+            <option value="nord">Nord</option>
+          </select>
+        </label>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido-principal">
+
+    <!-- ============================================================
+         VISTA 1 · LANDING (visible al cargar la página)
+         ============================================================ -->
+    <section id="vista-inicio" class="vista" aria-labelledby="titulo-landing">
+
+      <!-- Héroe: propuesta de valor + llamado a la acción -->
+      <div class="contenedor hero">
+        <div class="hero__texto">
+          <p class="insignia">v1.0.2 · MIT · ~2 KB gzip</p>
+          <h1 id="titulo-landing" class="hero__titulo">
+            Resaltado semántico
+            <span class="hero__acento">sin dependencias ni build</span>
+          </h1>
+          <p class="hero__descripcion">
+            <strong>preSintaxis.js</strong> es un resaltador de sintaxis minimalista para HTML
+            estático. En lugar de tokens genéricos, clasifica el código en categorías con
+            significado: <em>palabra reservada</em>, <em>tipo</em>, <em>valor</em>,
+            <em>operador</em> y <em>comentario</em>.
+          </p>
+
+          <div class="hero__acciones">
+            <!-- Botón destacado: lleva a la sección de documentación -->
+            <a class="boton boton--primario" href="#documentacion" data-accion="ir-docs">Leer la documentación</a>
+            <a class="boton boton--secundario" href="#doc-api" data-accion="ir-docs">Ir a la API</a>
+          </div>
+
+          <ul class="hero__datos">
+            <li><strong>2 KB</strong> gzip</li>
+            <li><strong>13 lenguajes</strong> incluidos</li>
+            <li><strong>7 categorías</strong> semánticas</li>
+            <li><strong>13 plugins</strong> oficiales</li>
+          </ul>
+        </div>
+
+        <!-- Bloque de código de muestra con resaltado, numeración y copiado -->
+        <div class="hero__codigo">
+          <pre data-encabezado="index.html" data-ajuste="copiar: true, lineas: true, resaltar: 2-3"><code data-sintaxis="html">
+            &lt;!-- Núcleo + lenguaje JavaScript --&gt;
+            &lt;script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/preSintaxis.min.js"&gt;&lt;/script&gt;
+            &lt;script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/lang/javascript.js"&gt;&lt;/script&gt;
+
+            &lt;!-- El bloque que se va a resaltar --&gt;
+            &lt;pre data-encabezado="app.js" data-ajuste="copiar: true, lineas: true"&gt;
+              &lt;code data-sintaxis="javascript"&gt;
+                const total = carrito.length;
+              &lt;/code&gt;
+            &lt;/pre&gt;
+          </code></pre>
+        </div>
+      </div>
+
+      <!-- Tarjetas de características de la librería -->
+      <div class="contenedor">
+        <h2 class="seccion-titulo" id="titulo-caracteristicas">¿Por qué preSintaxis?</h2>
+        <div class="caracteristicas" aria-labelledby="titulo-caracteristicas">
+          <article class="tarjeta">
+            <span class="tarjeta__icono" aria-hidden="true">01</span>
+            <h3>Semántico de verdad</h3>
+            <p>Cada regla declara qué representa el token, no un color. Cambiar de tema es cambiar variables CSS.</p>
+          </article>
+          <article class="tarjeta">
+            <span class="tarjeta__icono" aria-hidden="true">02</span>
+            <h3>Ultra ligero</h3>
+            <p>El núcleo ronda los 2 KB gzip, sin dependencias, sin paso de compilación y con lenguajes por separado.</p>
+          </article>
+          <article class="tarjeta">
+            <span class="tarjeta__icono" aria-hidden="true">03</span>
+            <h3>Extensible</h3>
+            <p>Registra lenguajes propios y plugins que se enganchan al ciclo de tokenizado y renderizado.</p>
+          </article>
+          <article class="tarjeta">
+            <span class="tarjeta__icono" aria-hidden="true">04</span>
+            <h3>Accesible</h3>
+            <p>Cada bloque es una región enfocable con etiqueta ARIA y botones reales para copiar o descargar.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         VISTA 2 · DOCUMENTACIÓN (oculta hasta que se solicita)
+         ============================================================ -->
+    <section id="vista-docs" class="vista" aria-label="Documentación de preSintaxis.js" hidden>
+      <div class="contenedor">
+        <div class="docs">
+          <!-- Fondo oscuro que cierra el menú al tocarlo -->
+          <button class="docs__fondo" id="fondo-menu" type="button"
+                  aria-label="Cerrar el menú de capítulos" hidden></button>
+
+          <!-- Menú lateral: los capítulos se generan desde las secciones de abajo -->
+          <aside class="docs__lateral" id="docs-lateral" aria-label="Capítulos de la documentación">
+            <button class="docs__cerrar" id="cerrar-menu" type="button" aria-label="Cerrar el menú">×</button>
+            <nav id="menu-docs" class="menu-docs">
+              <span class="menu-docs__titulo">Capítulos</span>
+            </nav>
+          </aside>
+
+          <!-- Área principal: un módulo visible a la vez -->
+          <div id="contenido-docs" class="docs__principal" tabindex="-1">
+
+            <!-- Módulo 1 -->
+            <section id="doc-introduccion" class="doc-modulo" data-titulo="1. Introducción" tabindex="-1">
+              <p class="doc-modulo__etiqueta">Módulo 1</p>
+              <h2>¿Qué es preSintaxis.js?</h2>
+              <p>
+                <strong>preSintaxis.js</strong> es una librería de resaltado de sintaxis para HTML
+                estático. A diferencia de otros resaltadores, no asigna colores directamente:
+                clasifica el código en <strong>categorías semánticas</strong> y deja que el CSS
+                decida cómo se ven.
+              </p>
+
+              <h3>Cómo funciona</h3>
+              <ul class="lista-check">
+                <li>Marcas un bloque con <code>&lt;pre&gt;</code> y <code>&lt;code data-sintaxis="…"&gt;</code>.</li>
+                <li>El núcleo tokeniza el texto con las reglas del lenguaje y agrupa los tokens por línea.</li>
+                <li>El resultado se escapa y se envuelve en <code>&lt;span class="ps-…"&gt;</code>.</li>
+                <li>Los plugins añaden descarga, resaltado de líneas, búsqueda, diff,
+                  terminal, ejecución de ejemplos y más.</li>
+              </ul>
+
+              <pre data-encabezado="categorias.js" data-ajuste="copiar: true, lineas: true, resaltar: 2-3"><code data-sintaxis="javascript">
+                // Cada token recibe una categoría, no un color
+                const total = items.length;
+                function sumar(a, b) { return a + b; }
+
+                // palabra: const, function, return
+                // tipo: number, string, Array
+                // valor: 42, "texto", true
+              </code></pre>
+
+              <div class="aviso aviso--info">
+                <strong>Versión 1.0.2 · Licencia MIT.</strong> El núcleo se autoinicia cuando el
+                documento termina de cargar; los lenguajes y plugins deben cargarse antes que tu
+                propio script.
+              </div>
+            </section>
+
+            <!-- Módulo 2 -->
+            <section id="doc-instalacion" class="doc-modulo" data-titulo="2. Instalación y CDN" tabindex="-1" hidden>
+              <p class="doc-modulo__etiqueta">Módulo 2</p>
+              <h2>Instalación y CDN</h2>
+              <p>
+                Solo necesitas el núcleo y los lenguajes que vayas a mostrar. Carga los scripts
+                en orden, antes de tu propia lógica, y deja que el núcleo procese los bloques
+                existentes al cargar el documento.
+              </p>
+
+              <h3>1. Núcleo + lenguaje JavaScript</h3>
+              <pre data-encabezado="index.html" data-ajuste="copiar: true, lineas: true, resaltar: 2-8"><code data-sintaxis="html">
+                &lt;!-- Núcleo (obligatorio) --&gt;
+                &lt;script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/preSintaxis.min.js"&gt;&lt;/script&gt;
+
+                &lt;!-- Lenguaje: cada archivo registra un identificador --&gt;
+                &lt;script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/lang/javascript.js"&gt;&lt;/script&gt;
+
+                &lt;!-- Plugins opcionales --&gt;
+                &lt;script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/plugins/temas.js"&gt;&lt;/script&gt;
+                &lt;script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/plugins/resaltar.js"&gt;&lt;/script&gt;
+                &lt;script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/plugins/descargar.js"&gt;&lt;/script&gt;
+                &lt;script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/plugins/scroll.js"&gt;&lt;/script&gt;
+              </code></pre>
+
+              <p>
+                El ejemplo carga cuatro plugins porque son los que usa este sitio. El repositorio
+                incluye <strong>13</strong>: añade solo los que necesites (la lista y sus claves
+                están en el módulo 5).
+              </p>
+
+              <h3>2. Lenguajes disponibles</h3>
+              <div class="tabla-envoltorio">
+                <table class="tabla">
+                  <caption class="visualmente-oculto">Lenguajes incluidos y su identificador</caption>
+                  <thead>
+                    <tr><th scope="col">Archivo</th><th scope="col">Identificador</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>lang/javascript.js</code></td><td><code>javascript</code></td></tr>
+                    <tr><td><code>lang/html.js</code></td><td><code>html</code></td></tr>
+                    <tr><td><code>lang/css.js</code></td><td><code>css</code></td></tr>
+                    <tr><td><code>lang/python.js</code></td><td><code>python</code></td></tr>
+                    <tr><td><code>lang/sql.js</code></td><td><code>sql</code></td></tr>
+                    <tr><td><code>lang/java.js</code></td><td><code>java</code></td></tr>
+                    <tr><td><code>lang/php.js</code></td><td><code>php</code></td></tr>
+                    <tr><td><code>lang/rust.js</code></td><td><code>rust</code></td></tr>
+                    <tr><td><code>lang/go.js</code></td><td><code>go</code></td></tr>
+                    <tr><td><code>lang/c.js</code></td><td><code>c</code></td></tr>
+                    <tr><td><code>lang/markdown.js</code></td><td><code>markdown</code></td></tr>
+                    <tr><td><code>lang/bash.js</code></td><td><code>bash</code></td></tr>
+                    <tr><td><code>lang/json.js</code></td><td><code>json</code></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="aviso aviso--info">
+                <strong>Rama main:</strong> el CDN apunta a <code>@main</code> para incluir
+                los 13 lenguajes y los 13 plugins del repositorio. Para producción, fija un
+                tag o un commit concreto en lugar de la rama.
+              </div>
+
+              <div class="aviso">
+                <strong>Sin conexión:</strong> descarga <code>dist/preSintaxis.min.js</code>, los
+                archivos de <code>dist/lang/</code> y los plugins, y sustituye las rutas del CDN
+                por rutas locales. La librería no necesita red.
+              </div>
+            </section>
+
+            <!-- Módulo 3 -->
+            <section id="doc-uso" class="doc-modulo" data-titulo="3. Uso básico" tabindex="-1" hidden>
+              <p class="doc-modulo__etiqueta">Módulo 3</p>
+              <h2>Uso básico</h2>
+              <p>
+                Marca el bloque con <code>data-sintaxis</code> en el <code>&lt;code&gt;</code>.
+                La librería escapa el texto al renderizar, recorta la indentación común y
+                respeta los saltos de línea. Si tu ejemplo contiene etiquetas HTML, escribe
+                <code>&amp;lt;</code> y <code>&amp;gt;</code> en el archivo fuente: el navegador
+                las interpreta antes de que la librería pueda escaparlas.
+              </p>
+
+              <p>
+                El núcleo solo procesa los <code>&lt;pre&gt;</code> que contienen un
+                <code>&lt;code&gt;</code>; si falta, el bloque se ignora sin errores.
+              </p>
+
+              <pre data-encabezado="bloque.html" data-ajuste="copiar: true, lineas: true, resaltar: 1-2"><code data-sintaxis="html">
+                &lt;pre data-encabezado="saludo.js" data-ajuste="copiar: true, lineas: true, resaltar: 2-3"&gt;
+                  &lt;code data-sintaxis="javascript"&gt;
+                    // Hola, preSintaxis
+                    const saludo = 'Hola, mundo';
+                    console.log(saludo);
+                  &lt;/code&gt;
+                &lt;/pre&gt;
+              </code></pre>
+
+              <h3>Atributos reconocidos</h3>
+              <div class="tabla-envoltorio">
+                <table class="tabla">
+                  <thead>
+                    <tr><th scope="col">Atributo</th><th scope="col">Dónde</th><th scope="col">Función</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>data-sintaxis</code></td><td><code>&lt;code&gt;</code></td><td>Identificador del lenguaje.</td></tr>
+                    <tr><td><code>data-lang</code></td><td><code>&lt;code&gt;</code></td><td>Alternativa a <code>data-sintaxis</code>.</td></tr>
+                    <tr><td><code>data-encabezado</code></td><td><code>&lt;pre&gt;</code></td><td>Barra superior con el nombre del archivo.</td></tr>
+                    <tr><td><code>data-ajuste</code></td><td><code>&lt;pre&gt;</code></td><td>Pares <code>clave: valor</code> con o sin llaves.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>Inicialización manual</h3>
+              <p>
+                El núcleo procesa el documento al cargar. Si insertas contenido después
+                (por ejemplo, al cambiar de pestaña), reinicia solo ese contenedor:
+              </p>
+              <pre data-encabezado="init.js" data-ajuste="copiar: true, lineas: true, resaltar: 2-2"><code data-sintaxis="javascript">
+                // Solo procesa los <pre> que aún no tienen data-sintaxis-listo
+                preSintaxis.init(document.querySelector('#contenido'));
+
+                // Revierte un bloque a su texto original (útil para demos)
+                preSintaxis.destruir('#demo pre');
+              </code></pre>
+            </section>
+
+            <!-- Módulo 4 -->
+            <section id="doc-lenguajes" class="doc-modulo" data-titulo="4. Lenguajes y reglas" tabindex="-1" hidden>
+              <p class="doc-modulo__etiqueta">Módulo 4</p>
+              <h2>Lenguajes y reglas</h2>
+              <p>
+                Un lenguaje es un arreglo de reglas <code>{ regex, tipo }</code>. El orden
+                importa: se evalúan de izquierda a derecha, así que los comentarios y las cadenas
+                deben ir antes que los operadores. Los identificadores se normalizan a
+                minúsculas, de modo que <code>JavaScript</code> y <code>javascript</code> apuntan
+                al mismo lenguaje.
+              </p>
+
+              <h3>Categorías semánticas</h3>
+              <div class="tabla-envoltorio">
+                <table class="tabla">
+                  <thead>
+                    <tr><th scope="col">Tipo</th><th scope="col">Clase generada</th><th scope="col">Variable CSS</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>palabra</code></td><td><code>.ps-palabra</code></td><td><code>--ps-palabra</code></td></tr>
+                    <tr><td><code>identificador</code></td><td><code>.ps-identificador</code></td><td><code>--ps-identificador</code></td></tr>
+                    <tr><td><code>operador</code></td><td><code>.ps-operador</code></td><td><code>--ps-operador</code></td></tr>
+                    <tr><td><code>delimitador</code></td><td><code>.ps-delimitador</code></td><td><code>--ps-delimitador</code></td></tr>
+                    <tr><td><code>tipo</code></td><td><code>.ps-tipo</code></td><td><code>--ps-tipo</code></td></tr>
+                    <tr><td><code>valor</code></td><td><code>.ps-valor</code></td><td><code>--ps-valor</code></td></tr>
+                    <tr><td><code>comentario</code></td><td><code>.ps-comentario</code></td><td><code>--ps-comentario</code></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>Registrar un lenguaje propio</h3>
+              <pre data-encabezado="lenguaje-toml.js" data-ajuste="copiar: true, lineas: true, resaltar: 2-7"><code data-sintaxis="javascript">
+                preSintaxis.registrarSintaxis('toml', [
+                  { tipo: 'comentario', regex: /#[^\n]*/ },          // primero: gana al resto
+                  { tipo: 'valor',      regex: /"[^"]*"|'[^']*'/ },  // cadenas
+                  { tipo: 'tipo',       regex: /\[[^\]\n]+\]/ },     // [seccion]
+                  { tipo: 'palabra',    regex: /\b(?:true|false)\b/ },
+                  { tipo: 'operador',   regex: /=/ }
+                ]);
+              </code></pre>
+
+              <div class="aviso aviso--info">
+                Usa grupos sin captura <code>(?:…)</code> dentro de tus reglas. La librería
+                combina todas las expresiones en una sola y necesita controlar sus propios
+                grupos.
+              </div>
+
+              <div class="aviso">
+                <strong>Sin lenguaje cargado:</strong> si <code>data-sintaxis</code> no coincide
+                con ningún archivo de <code>dist/lang/</code>, el bloque se muestra como texto
+                plano. El identificador <code>texto</code> también fuerza ese modo.
+              </div>
+            </section>
+
+            <!-- Módulo 5 -->
+            <section id="doc-ajustes" class="doc-modulo" data-titulo="5. Ajustes y plugins" tabindex="-1" hidden>
+              <p class="doc-modulo__etiqueta">Módulo 5</p>
+              <h2>Ajustes y plugins</h2>
+              <p>
+                Los ajustes se declaran en <code>data-ajuste</code> como pares
+                <code>clave: valor</code> separados por comas. El formato oficial usa llaves y
+                valores entre comillas —<code>data-ajuste="{copiar: 'true', lineas: 'true'}"</code>—,
+                aunque también se acepta sin llaves. Cada opción la aporta el núcleo o un plugin;
+                si el plugin no está cargado, la opción se ignora sin errores.
+              </p>
+
+              <div class="tabla-envoltorio">
+                <table class="tabla">
+                  <thead>
+                    <tr><th scope="col">Clave</th><th scope="col">Requiere</th><th scope="col">Default</th><th scope="col">Efecto</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>copiar</code></td><td>núcleo</td><td><code>false</code></td><td>Botón para copiar el código.</td></tr>
+                    <tr><td><code>lineas</code></td><td>núcleo</td><td><code>false</code></td><td>Numeración de líneas.</td></tr>
+                    <tr><td><code>resaltar</code></td><td><code>resaltar.js</code></td><td>—</td><td>Resalta líneas o rangos: <code>3</code>, <code>4-6</code>, <code>1,3-5</code> (base 1).</td></tr>
+                    <tr><td><code>descargar</code></td><td><code>descargar.js</code></td><td><code>false</code></td><td>Botón para descargar el bloque como texto; usa el nombre de <code>data-encabezado</code>.</td></tr>
+                    <tr><td><code>maxlineas</code></td><td><code>scroll.js</code></td><td><code>20</code></td><td>Líneas mínimas para activar el scroll vertical.</td></tr>
+                    <tr><td><code>altura</code></td><td><code>scroll.js</code></td><td><code>24rem</code></td><td>Altura máxima del área con scroll.</td></tr>
+                    <tr><td><code>buscar</code></td><td><code>buscar.js</code></td><td><code>false</code></td><td>Barra de búsqueda con resaltado y navegación con Enter.</td></tr>
+                    <tr><td><code>compartir</code></td><td><code>compartir.js</code></td><td><code>false</code></td><td>Menú para compartir en X, LinkedIn, WhatsApp, email o copiar.</td></tr>
+                    <tr><td><code>diff</code></td><td><code>diff.js</code></td><td><code>false</code></td><td>Colorea líneas añadidas (<code>+</code>), eliminadas (<code>-</code>) y cabeceras (<code>@@</code>).</td></tr>
+                    <tr><td><code>enlaces</code></td><td><code>enlaces.js</code></td><td><code>false</code></td><td>Convierte las URLs de los comentarios en enlaces.</td></tr>
+                    <tr><td><code>terminal</code></td><td><code>terminal.js</code></td><td><code>false</code></td><td>Colorea líneas según el prefijo <code>$</code>, <code>&gt;</code>, <code>!</code> o <code>✗</code>.</td></tr>
+                    <tr><td><code>sanitizar</code></td><td><code>sanitizar.js</code></td><td><code>false</code></td><td>Elimina caracteres de control y normaliza el texto a NFC.</td></tr>
+                    <tr><td><code>ejecutar</code></td><td><code>ejecutar-javascript.js</code></td><td><code>false</code></td><td>Ejecuta el JavaScript del bloque y muestra <code>console.log</code>.</td></tr>
+                    <tr><td><code>playground</code></td><td><code>playground.js</code></td><td><code>false</code></td><td>Editor editable y vista previa en un iframe (HTML).</td></tr>
+                    <tr><td><code>lazy</code></td><td><code>carga-diferida.js</code></td><td><code>false</code></td><td>Experimental: marca el bloque para <code>IntersectionObserver</code>; el núcleo lo procesa al cargar. Usa <code>lazy:'true'</code> sin espacios.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <pre data-encabezado="bloque-completo.html" data-ajuste="copiar: true, lineas: true, resaltar: 3-4"><code data-sintaxis="html">
+                &lt;pre data-encabezado="peticion.js"
+                     data-ajuste="copiar: true, lineas: true, resaltar: 3-4, descargar: true, maxlineas: 12, altura: 18rem"&gt;
+                  &lt;code data-sintaxis="javascript"&gt;
+                    const respuesta = await fetch('/api/modulos');
+                    const modulos = await respuesta.json();
+                    console.log(modulos.length);
+                  &lt;/code&gt;
+                &lt;/pre&gt;
+              </code></pre>
+
+              <h3>Plugins oficiales</h3>
+              <p>
+                Los 13 archivos de <code>dist/plugins/</code> se cargan después del núcleo;
+                cada uno registra su plugin y su opción automáticamente. Carga solo los que uses.
+              </p>
+              <ul class="lista-check">
+                <li><code>temas.js</code>: aplica <code>dracula</code>, <code>nord</code> o <code>github-light</code>.</li>
+                <li><code>resaltar.js</code>, <code>descargar.js</code>, <code>scroll.js</code>: mejoras del bloque de código.</li>
+                <li><code>buscar.js</code>, <code>compartir.js</code>, <code>enlaces.js</code>: búsqueda interior y difusión.</li>
+                <li><code>diff.js</code>, <code>terminal.js</code>: coloreado especial de líneas.</li>
+                <li><code>sanitizar.js</code>, <code>ejecutar-javascript.js</code>, <code>playground.js</code>: limpieza y demos interactivas.</li>
+                <li><code>carga-diferida.js</code>: observador de intersección para bloques con <code>lazy:'true'</code> (experimental).</li>
+              </ul>
+
+              <div class="aviso">
+                <strong>Precaución:</strong> <code>ejecutar-javascript.js</code> ejecuta el código
+                del bloque con <code>new Function()</code> y <code>playground.js</code> lo
+                interpreta en un iframe. Úsalos solo con ejemplos de confianza.
+              </div>
+
+              <h3>Crear un plugin</h3>
+              <pre data-encabezado="plugin-propio.js" data-ajuste="copiar: true, lineas: true, descargar: true"><code data-sintaxis="javascript">
+preSintaxis.registrarPlugin('nombreDelPlugin', (api) => {
+  // 1. Inyectar estilos (si es necesario)
+  const style = document.createElement('style');
+  style.textContent = `...`;
+  document.head.appendChild(style);
+
+  // 2. Escuchar el hook del core
+  api.hook('despuesDeRenderizar').registrar(({ pre, code, wrapper, ajustes, texto }) => {
+    if (ajustes.nombreDelPlugin !== 'true') return;
+    
+    // 3. Añadir la funcionalidad al bloque
+    // ...
+  });
+});
+              </code></pre>
+            </section>
+
+            <!-- Módulo 6 -->
+            <section id="doc-temas" class="doc-modulo" data-titulo="6. Temas" tabindex="-1" hidden>
+              <p class="doc-modulo__etiqueta">Módulo 6</p>
+              <h2>Temas</h2>
+              <p>
+                El núcleo inyecta su CSS en un <code>&lt;style id="ps-estilos"&gt;</code> con un
+                bloque <code>:root</code> de variables. Aplicar un tema consiste en reemplazar
+                ese bloque; no hay que tocar el HTML ni volver a tokenizar.
+              </p>
+
+              <div class="tabla-envoltorio">
+                <table class="tabla">
+                  <caption class="visualmente-oculto">Variables CSS de preSintaxis.js</caption>
+                  <thead>
+                    <tr><th scope="col">Variable</th><th scope="col">Uso</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>--ps-contenido</code></td><td>Fondo del bloque</td></tr>
+                    <tr><td><code>--ps-encabezado</code></td><td>Barra del título del archivo</td></tr>
+                    <tr><td><code>--ps-texto</code></td><td>Texto base y del código</td></tr>
+                    <tr><td><code>--ps-palabra</code></td><td>Palabras reservadas</td></tr>
+                    <tr><td><code>--ps-identificador</code></td><td>Variables, funciones y clases</td></tr>
+                    <tr><td><code>--ps-operador</code></td><td>Operadores y signos lógicos</td></tr>
+                    <tr><td><code>--ps-delimitador</code></td><td>Paréntesis, llaves, corchetes y comas</td></tr>
+                    <tr><td><code>--ps-tipo</code></td><td>Tipos y funciones integradas</td></tr>
+                    <tr><td><code>--ps-valor</code></td><td>Cadenas, números y literales</td></tr>
+                    <tr><td><code>--ps-comentario</code></td><td>Comentarios</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p>
+                El plugin incluye <code>dracula</code>, <code>nord</code> y
+                <code>github-light</code>. Este sitio añade <code>atom-one-dark</code> y
+                <code>monokai</code> con la misma técnica y recuerda tu elección en
+                <code>localStorage</code>.
+              </p>
+
+              <pre data-encabezado="temas.js" data-ajuste="copiar: true, lineas: true, resaltar: 2-4"><code data-sintaxis="javascript">
+                // 1) Temas del plugin oficial
+                window.preSintaxisTemas.temas;      // ['dracula', 'nord', 'github-light']
+                window.preSintaxisTemas.aplicar('nord');
+
+                // 2) Tema propio: reemplaza el bloque :root inyectado
+                const variables = {
+                  '--ps-contenido': '#1e1f1c',
+                  '--ps-texto': '#f8f8f2',
+                  '--ps-palabra': '#f92672',
+                  '--ps-tipo': '#66d9ef',
+                  '--ps-valor': '#e6db74',
+                  '--ps-comentario': '#75715e'
+                };
+
+                const estilos = document.getElementById('ps-estilos');
+                const bloque = ':root {\n' + Object.entries(variables)
+                  .map(([clave, valor]) => `${clave}: ${valor};`)
+                  .join('\n') + '\n}';
+
+                estilos.textContent = estilos.textContent.replace(/:root\s*\{[\s\S]*?\}/, bloque);
+              </code></pre>
+            </section>
+
+            <!-- Módulo 7 -->
+            <section id="doc-api" class="doc-modulo" data-titulo="7. API de referencia" tabindex="-1" hidden>
+              <p class="doc-modulo__etiqueta">Módulo 7</p>
+              <h2>API de referencia</h2>
+              <p>
+                Todo se expone en el objeto global <code>window.preSintaxis</code>. Los métodos
+                devuelven la propia API, por lo que se pueden encadenar.
+              </p>
+
+              <div class="tabla-envoltorio">
+                <table class="tabla">
+                  <thead>
+                    <tr><th scope="col">Miembro</th><th scope="col">Descripción</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>version</code></td><td>Versión actual: <code>1.0.2</code>.</td></tr>
+                    <tr><td><code>init(root)</code></td><td>Procesa los <code>&lt;pre&gt;</code> pendientes dentro de <code>root</code> (por defecto, <code>document</code>).</td></tr>
+                    <tr><td><code>destruir(selector)</code></td><td>Quita el resaltado y restaura el texto original.</td></tr>
+                    <tr><td><code>registrarSintaxis(id, reglas)</code></td><td>Añade o reemplaza un lenguaje.</td></tr>
+                    <tr><td><code>registrarPlugin(nombre, fn)</code></td><td>Ejecuta el plugin una sola vez con la API como argumento.</td></tr>
+                    <tr><td><code>hook(nombre).registrar(fn)</code></td><td>Suscribe una función a un punto del ciclo de renderizado.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>Hooks disponibles</h3>
+              <div class="tabla-envoltorio">
+                <table class="tabla">
+                  <thead>
+                    <tr><th scope="col">Hook</th><th scope="col">Recibe</th><th scope="col">Puede devolver</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>antesDeTokenizar</code></td><td><code>{ lenguaje, texto, ajustes, pre, code }</code></td><td><code>{ lenguaje, texto }</code></td></tr>
+                    <tr><td><code>despuesDeTokenizar</code></td><td><code>{ lineas, lenguaje, ajustes, pre, code }</code></td><td><code>{ lineas }</code></td></tr>
+                    <tr><td><code>antesDeRenderizar</code></td><td><code>{ html, lineas, lenguaje, ajustes, pre, code }</code></td><td><code>{ html }</code></td></tr>
+                    <tr><td><code>despuesDeRenderizar</code></td><td><code>{ pre, code, wrapper, lineas, lenguaje, ajustes, texto }</code></td><td>— (solo efectos)</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <pre data-encabezado="api.js" data-ajuste="copiar: true, lineas: true, resaltar: 4-7"><code data-sintaxis="javascript">
+                // Un plugin que normaliza el lenguaje antes de tokenizar
+                preSintaxis.registrarPlugin('alias-ts', (api) => {
+                  api.hook('antesDeTokenizar').registrar((ctx) => {
+                    if (ctx.lenguaje === 'typescript') {
+                      return { lenguaje: 'javascript', texto: ctx.texto };
+                    }
+                  });
+                });
+
+                // Uso directo de la API
+                preSintaxis.registrarSintaxis('sh', [
+                  { tipo: 'comentario', regex: /#[^\n]*/ },
+                  { tipo: 'palabra', regex: /\b(?:if|then|fi|for|do|done)\b/ },
+                  { tipo: 'valor', regex: /"[^"]*"/ }
+                ]);
+              </code></pre>
+            </section>
+
+            <!-- Módulo 8 -->
+            <section id="doc-buenas-practicas" class="doc-modulo" data-titulo="8. Buenas prácticas" tabindex="-1" hidden>
+              <p class="doc-modulo__etiqueta">Módulo 8</p>
+              <h2>Buenas prácticas</h2>
+              <ul class="lista-check">
+                <li>Carga solo los lenguajes que realmente muestras: cada archivo es independiente.</li>
+                <li>Para producción, fija un tag o un commit del CDN en lugar de la rama
+                  <code>@main</code>, que cambia con el repositorio.</li>
+                <li>Declara las reglas de comentarios y cadenas antes que las de operadores.</li>
+                <li>Evita duplicar el CSS del resaltado: usa las variables semánticas y un solo tema.</li>
+                <li>Si generas contenido dinámico, llama a <code>init(contenedor)</code> después de insertarlo.</li>
+              </ul>
+
+              <h3>Limitaciones conocidas</h3>
+              <ul class="lista-check">
+                <li>No es un parser real: aplica expresiones regulares en orden, así que JSX,
+                  HTML dentro de JavaScript o plantillas anidadas se colorean de forma aproximada.</li>
+                <li>En bloques de más de 500 líneas el motor de expresiones regulares puede
+                  ralentizarse; conviene activar <code>scroll.js</code> o dividir el ejemplo.</li>
+                <li>El lenguaje debe declararse con <code>data-sintaxis</code> (o
+                  <code>data-lang</code>); no hay detección automática.</li>
+              </ul>
+
+              <h3>Notas de implementación</h3>
+              <p>
+                El tokenizador trabaja sobre el texto crudo y escapa cada token al renderizar.
+                Por eso el coloreado es correcto incluso cuando hay etiquetas HTML dentro de una
+                cadena o un comentario.
+              </p>
+              <p>
+                Los estilos base se inyectan en <code>&lt;style id="ps-estilos"&gt;</code> y el
+                contenido se envuelve en <code>.ps-contenido</code>, lo que evita los saltos de
+                línea y márgenes asimétricos clásicos de <code>&lt;pre&gt;</code> y
+                <code>&lt;code&gt;</code>.
+              </p>
+
+              <h3>Preguntas frecuentes</h3>
+              <div class="preguntas">
+                <details>
+                  <summary>¿Necesito jQuery, Prism o highlight.js?</summary>
+                  <p>No. preSintaxis.js no tiene dependencias y no compite con otros resaltadores:
+                    si ya usas uno, no cargues ambos sobre los mismos bloques.</p>
+                </details>
+                <details>
+                  <summary>¿Cómo muestro el código HTML sin que el navegador lo interprete?</summary>
+                  <p>Escribe el contenido dentro de <code>&lt;code&gt;</code> con las entidades
+                    <code>&amp;lt;</code> y <code>&amp;gt;</code>, o genera la página desde una
+                    plantilla que escape el texto. La librería escapa al renderizar, pero el
+                    navegador ya interpretó el HTML antes.</p>
+                </details>
+                <details>
+                  <summary>¿Funciona con React, Vue o Svelte?</summary>
+                  <p>Sí, siempre que inicialices después del renderizado del componente:
+                    <code>preSintaxis.init(ref.current)</code> o el equivalente en tu framework.</p>
+                </details>
+                <details>
+                  <summary>¿Por qué mi bloque no se resalta?</summary>
+                  <p>Revisa que el <code>&lt;code&gt;</code> tenga <code>data-sintaxis</code> con un
+                    lenguaje cargado y que el archivo del lenguaje se haya ejecutado antes que
+                    <code>init()</code>. Los bloques ya procesados llevan
+                    <code>data-sintaxis-listo</code>.</p>
+                </details>
+                <details>
+                  <summary>¿Puedo cambiar el HTML generado?</summary>
+                  <p>Sí. Los hooks <code>antesDeRenderizar</code> y <code>despuesDeRenderizar</code>
+                    permiten transformar el HTML o decorar el bloque sin modificar la librería.</p>
+                </details>
+              </div>
+
+              <div class="aviso">
+                <strong>Accesibilidad:</strong> cada bloque procesado recibe
+                <code>role="region"</code> y <code>aria-label</code>, y es enfocable con
+                <code>tabindex="0"</code>; los botones de copiado y descarga son
+                <code>button</code> reales.
+              </div>
+            </section>
+
+            <!-- Botón para avanzar al siguiente capítulo (se oculta en el último) -->
+            <nav class="doc-paginacion" id="paginacion-docs" aria-label="Navegación entre capítulos">
+              <button class="boton boton--primario" id="boton-siguiente" type="button">
+                Siguiente: <span id="siguiente-titulo"></span>
+              </button>
+            </nav>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       PIE DE PÁGINA
+       ============================================================ -->
+  <footer class="pie">
+    <div class="contenedor pie__interior">
+      <p>© <span id="anio">2026</span> Documentación de preSintaxis.js v1.0.2.</p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       LIBRERÍA DE RESALTADO (CDN) + PLUGINS
+       Se cargan en orden: núcleo → lenguajes → plugins → script propio
+       ============================================================ -->
+  <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/preSintaxis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/lang/html.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/lang/javascript.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/lang/python.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/lang/css.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/lang/sql.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/plugins/temas.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/plugins/resaltar.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/plugins/descargar.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@main/dist/plugins/scroll.js"></script>
+
+  <!-- Lógica del sitio -->
+  <script src="script.js"></script>
+</body>
+</html>

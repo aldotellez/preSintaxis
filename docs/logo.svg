@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="384" viewBox="0 0 384 384" role="img" aria-labelledby="titulo-logo">
+  <title id="titulo-logo">preSintaxis.js</title>
+  <defs>
+    <!-- Gradiente con los colores primarios del sitio -->
+    <linearGradient id="gradiente-marca" x1="0" y1="0" x2="384" y2="384" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#4338ca"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo redondeado del icono -->
+  <rect width="384" height="384" rx="88" fill="url(#gradiente-marca)"/>
+
+  <!-- Símbolo </> -->
+  <g fill="none" stroke="#ffffff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M108 74 L42 121 L108 168"/>
+    <path d="M276 74 L342 121 L276 168"/>
+    <path d="M216 64 L164 178"/>
+  </g>
+
+  <!-- Tres líneas de código -->
+  <g fill="#ffffff">
+    <rect x="50" y="222" width="280" height="17" rx="8.5"/>
+    <rect x="50" y="258" width="280" height="17" rx="8.5"/>
+    <rect x="50" y="294" width="240" height="17" rx="8.5"/>
+  </g>
+</svg>
