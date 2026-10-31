@@ -1,10 +1,4 @@
-/* =========================================================
-   LandingDocs v1.0 — script.js
-   Responsabilidades:
-   1) Alternar entre la landing y la documentación.
-   2) Generar el menú lateral desde las secciones del HTML.
-   3) Inicializar preSintaxis.js y gestionar los temas de código.
-   ========================================================= */
+
 (() => {
   'use strict';
 
