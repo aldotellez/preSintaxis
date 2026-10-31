@@ -5,7 +5,7 @@
 Es ultra ligera (~2 KB gzip), sin dependencias, sin build step, y totalmente modular mediante plugins.
 
 ---
-Documntacion
+Documentación
 https://aldotellez.github.io/preSintaxis
 
 ## 🚀 Instalación
