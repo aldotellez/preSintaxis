@@ -5,6 +5,8 @@
 Es ultra ligera (~2 KB gzip), sin dependencias, sin build step, y totalmente modular mediante plugins.
 
 ---
+Documntacion
+https://aldotellez.github.io/preSintaxis
 
 ## 🚀 Instalación
 
@@ -17,3 +19,4 @@ Solo necesitas cargar el Core (núcleo) y el lenguaje que vayas a utilizar.
 
 <!-- 2. Lenguaje (ejemplo: JavaScript) -->
 <script src="https://cdn.jsdelivr.net/gh/aldotellez/presintaxis@v1.0.2/dist/lang/javascript.js"></script>
+
